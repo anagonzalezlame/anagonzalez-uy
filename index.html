@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ana González Lamé, Senior QA</title>
+<meta name="description" content="Senior manual QA in Montevideo, Uruguay. BDD, API and exploratory testing, now growing into delivery and team leadership.">
+<meta property="og:title" content="Ana González Lamé, Senior QA">
+<meta property="og:description" content="Senior manual QA in Montevideo. Details matter, and a person notices them.">
+<meta property="og:image" content="https://www.anagonzalez.uy/ana.webp">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-display:swap;font-weight:200 800;src:url(fonts/bricolage-grotesque-latin-wght-normal.woff2) format('woff2')}
+@font-face{font-family:'Hanken Grotesk';font-style:normal;font-display:swap;font-weight:100 900;src:url(fonts/hanken-grotesk-latin-wght-normal.woff2) format('woff2')}
+:root{
+  --bg:#ffffff;
+  --surface:#f1f5f4;
+  --line:#dde7e4;
+  --ink:#0d1412;
+  --muted:#54655f;
+  --teal:#1fb8a3;          /* fills and strokes only */
+  --teal-text:#0e7668;     /* teal used as text on light backgrounds */
+  --on-teal:#07110f;
+  --dark-muted:#a9bab4;    /* body text on the ink band */
+
+  --display:'Bricolage Grotesque','Hanken Grotesk',sans-serif;
+  --body:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;
+  --max:72rem;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+::selection{background:var(--teal);color:var(--on-teal)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--teal-text);outline-offset:3px;border-radius:3px}
+.band :focus-visible{outline-color:var(--teal)}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:clamp(1.25rem,4vw,2.5rem)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-0.015em;text-wrap:balance;margin:0}
+p{margin:0}
+.skip{position:absolute;left:1rem;top:-3rem;background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:.5rem;z-index:99;text-decoration:none}
+.skip:focus{top:1rem}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;padding:.85rem 1.45rem;border-radius:999px;font-weight:600;font-size:.98rem;text-decoration:none;border:1px solid transparent;transition:background .2s ease,border-color .2s ease,color .2s ease}
+.btn-primary{background:var(--teal);color:var(--on-teal)}
+.btn-primary:hover{background:var(--ink);color:#fff}
+.btn-ghost{border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink)}
+
+/* header */
+header{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:68px}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.08rem;text-decoration:none;display:flex;align-items:center;gap:.4rem;white-space:nowrap}
+.wordmark .mark{color:var(--teal-text);font-size:1.1em;line-height:1}
+.navlinks{display:flex;align-items:center;gap:clamp(.9rem,2vw,1.8rem);list-style:none;margin:0;padding:0}
+.navlinks a.sec{font-size:.95rem;text-decoration:none;color:var(--muted);position:relative;padding-block:.3rem}
+.navlinks a.sec:hover,.navlinks a.sec[aria-current="true"]{color:var(--ink)}
+.navlinks a.sec[aria-current="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-.35rem;height:2px;background:var(--teal);border-radius:1px}
+@media (max-width:860px){.navlinks .hide-m{display:none}}
+@media (max-width:480px){.navlinks .hide-s{display:none}.navlinks{gap:.8rem}}
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.lang button{font:600 .78rem/1 var(--body);letter-spacing:.02em;border:0;background:transparent;color:var(--muted);padding:.42rem .66rem;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.nav-in{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;background:var(--teal);color:var(--on-teal);transition:background .2s ease,color .2s ease}
+.nav-in:hover{background:var(--ink);color:var(--teal)}
+.nav-in svg{width:17px;height:17px}
+
+/* hero */
+.hero{padding-top:clamp(2.5rem,6vw,4.5rem);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.45fr .85fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:end}
+.hero-text{padding-bottom:clamp(2.5rem,6vw,5rem)}
+.status{display:flex;align-items:center;gap:.6rem;font-size:.98rem;color:var(--muted);margin-bottom:1.6rem}
+.status .dot{width:8px;height:8px;border-radius:50%;background:#22b45c;box-shadow:0 0 0 4px #22b45c26;flex:none}
+.status b{color:var(--ink);font-weight:600}
+.hero h1{font-size:clamp(2.5rem,5.6vw,4.3rem);line-height:1.1;letter-spacing:-0.025em}
+.hero h1 .line{display:block}
+.hero h1 .who{position:relative;white-space:nowrap}
+.hero h1 .who svg{position:absolute;left:-2%;bottom:-.12em;width:104%;height:.32em;overflow:visible}
+.hero h1 .who path{fill:none;stroke:var(--teal);stroke-width:9;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.1s .45s cubic-bezier(.65,0,.35,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero-sub{max-width:40ch;margin-top:1.7rem;font-size:1.15rem;color:var(--muted)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.portrait{margin:0;align-self:end;position:relative}
+.portrait img{display:block;width:100%;max-width:440px;margin-left:auto;height:auto;opacity:0;animation:fade .9s .1s ease forwards}
+@keyframes fade{to{opacity:1}}
+.portrait figcaption{position:absolute;right:0;bottom:1.4rem;background:var(--ink);color:#fff;font-size:.82rem;font-weight:600;padding:.45rem .85rem;border-radius:999px}
+@media (prefers-reduced-motion:reduce){
+  .hero h1 .who path{animation:none;stroke-dashoffset:0}
+  .portrait img{animation:none;opacity:1}
+}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-text{padding-bottom:1rem}
+  .portrait img{max-width:340px;margin-inline:auto}
+  .portrait figcaption{right:50%;transform:translateX(50%)}
+}
+
+/* facts strip */
+.facts{border-block:1px solid var(--line)}
+.facts ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr)}
+.facts li{padding:1.15rem clamp(.9rem,2vw,1.5rem);border-left:1px solid var(--line);font-size:.95rem;line-height:1.35}
+.facts li:first-child{border-left:0;padding-left:0}
+.facts b{display:block;font-weight:600}
+.facts span{color:var(--muted);font-size:.88rem}
+@media (max-width:760px){
+  .facts ul{grid-template-columns:1fr 1fr}
+  .facts li:nth-child(odd){border-left:0;padding-left:0}
+  .facts li:nth-child(n+3){border-top:1px solid var(--line)}
+}
+
+/* sections */
+section{padding-block:clamp(4rem,9vw,7rem)}
+.head{max-width:42rem;margin-bottom:clamp(2rem,5vw,3.2rem)}
+.head h2{font-size:clamp(2rem,4vw,2.9rem);line-height:1.08}
+.head p{margin-top:1rem;color:var(--muted);max-width:60ch}
+
+/* profile */
+.bio{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,5vw,4.5rem);align-items:start}
+.bio p{color:var(--muted);max-width:60ch}
+.bio p+p{margin-top:1.1rem}
+.bio strong{color:var(--ink);font-weight:600}
+blockquote{margin:0;font-family:var(--display);font-size:clamp(1.45rem,2.8vw,1.95rem);line-height:1.25;font-weight:500;padding-top:1.2rem;border-top:3px solid var(--teal)}
+@media (max-width:820px){.bio{grid-template-columns:1fr}}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);margin-top:clamp(3rem,6vw,4.5rem);border-top:1px solid var(--line)}
+.pillar{padding:1.8rem clamp(1rem,2vw,1.8rem) 0;border-left:1px solid var(--line)}
+.pillar:first-child{border-left:0;padding-left:0}
+.pillar h3{font-size:1.2rem;margin-bottom:.55rem}
+.pillar p{color:var(--muted);font-size:.98rem}
+.pillar .tools{margin-top:.9rem;font-size:.88rem;color:var(--teal-text);font-weight:600}
+@media (max-width:820px){
+  .pillars{grid-template-columns:1fr}
+  .pillar{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-bottom:1.6rem}
+  .pillar:first-child{border-top:0}
+}
+
+/* leadership band */
+.band{background:var(--ink);color:#fff}
+.band .head p{color:var(--dark-muted)}
+.lead-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(2rem,6vw,5rem);align-items:start}
+@media (max-width:860px){.lead-grid{grid-template-columns:1fr}}
+.practice h3{font-size:1.05rem;font-family:var(--body);font-weight:600;color:var(--teal);margin-bottom:.9rem}
+.practice ul{list-style:none;margin:0;padding:0}
+.practice li{padding:.95rem 0;border-top:1px solid #ffffff1f;color:var(--dark-muted)}
+.practice li strong{color:#fff;font-weight:600}
+.practice a{color:#fff;text-decoration-color:var(--teal);text-decoration-thickness:2px;text-underline-offset:3px}
+.track{list-style:none;margin:0;padding:0}
+.track li{display:grid;grid-template-columns:4.2rem 1fr;gap:1.2rem;padding:1.4rem 0;border-top:1px solid #ffffff1f}
+.track li:last-child{border-bottom:1px solid #ffffff1f}
+.track .yr{font-weight:600;color:var(--teal);padding-top:.15rem}
+.track h3{font-size:1.2rem;line-height:1.25}
+.track .by{color:var(--dark-muted);font-size:.92rem;margin-top:.15rem}
+.track .what{color:var(--dark-muted);margin-top:.55rem;font-size:.98rem;max-width:56ch}
+.track a{display:inline-block;margin-top:.55rem;font-size:.9rem;font-weight:600;color:#fff;text-decoration-color:var(--teal);text-decoration-thickness:2px;text-underline-offset:3px}
+
+/* credentials table */
+.creds{width:100%;border-collapse:collapse}
+.creds th{text-align:left;font-weight:600;font-size:.88rem;color:var(--muted);padding:0 1rem .7rem 0;border-bottom:1px solid var(--ink)}
+.creds td{padding:1.05rem 1rem 1.05rem 0;border-bottom:1px solid var(--line);vertical-align:top}
+.creds td:first-child{width:5rem;color:var(--muted)}
+.creds td.name{font-weight:600}
+.creds td.issuer{color:var(--muted)}
+@media (max-width:640px){
+  .creds thead{position:absolute;left:-9999px}
+  .creds tr{display:grid;grid-template-columns:4rem 1fr;border-bottom:1px solid var(--line);padding:.9rem 0}
+  .creds td{border:0;padding:0}
+  .creds td:first-child{grid-row:span 2}
+  .creds td.issuer{grid-column:2}
+}
+
+/* open work */
+.work{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.work li{display:grid;grid-template-columns:1fr 1.3fr auto;gap:clamp(1rem,3vw,2.5rem);padding:1.6rem 0;border-bottom:1px solid var(--line);align-items:baseline}
+.work h3{font-size:1.25rem}
+.work .stack{display:block;color:var(--teal-text);font-size:.88rem;font-weight:600;margin-top:.3rem;font-family:var(--body);letter-spacing:0}
+.work p{color:var(--muted)}
+.work a{font-weight:600;font-size:.95rem;white-space:nowrap;text-decoration-color:var(--teal);text-decoration-thickness:2px;text-underline-offset:3px}
+@media (max-width:820px){.work li{grid-template-columns:1fr;gap:.5rem}}
+
+/* talks */
+.talks{--tg:clamp(1.4rem,3vw,2.2rem);--yc:4.6rem;list-style:none;margin:0;padding:0;position:relative}
+.talks::before{content:"";position:absolute;left:calc(var(--yc) + var(--tg) / 2);top:.5rem;bottom:.5rem;width:1px;background:var(--line)}
+.talk{display:grid;grid-template-columns:var(--yc) 1fr;gap:var(--tg);padding-block:1.5rem}
+.talk+.talk{border-top:1px solid var(--line)}
+.talk .yr{font-weight:600;position:relative}
+.talk .yr::after{content:"";position:absolute;right:calc(-1 * var(--tg) / 2 - 5px);top:.45rem;width:10px;height:10px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px var(--bg)}
+.talk h3{font-size:1.15rem;font-family:var(--body);font-weight:600;letter-spacing:0}
+.talk p{color:var(--muted);margin-top:.3rem}
+.talk a{display:inline-block;margin-top:.55rem;font-size:.92rem;font-weight:600;text-decoration-color:var(--teal);text-decoration-thickness:2px;text-underline-offset:3px}
+@media (max-width:640px){.talks{--yc:3.2rem}}
+
+/* community */
+.community{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);margin-top:clamp(3rem,6vw,4.5rem);padding-top:clamp(2rem,4vw,3rem);border-top:1px solid var(--line)}
+.community h3{font-size:1.2rem;margin-bottom:.5rem}
+.community p{color:var(--muted)}
+@media (max-width:760px){.community{grid-template-columns:1fr}}
+
+/* contact */
+.cta{background:var(--surface);border-radius:1.6rem;padding:clamp(2.2rem,6vw,4rem);display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center}
+.cta h2{font-size:clamp(2.1rem,4.6vw,3.2rem);line-height:1.05}
+.cta-side{display:flex;flex-direction:column;gap:1rem;align-items:flex-start}
+.cta-side p{color:var(--muted)}
+.cta-mail{color:var(--muted);font-size:.95rem;text-decoration-color:var(--line);text-underline-offset:3px}
+@media (max-width:760px){.cta{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--line);padding-block:2rem}
+.foot{display:flex;flex-wrap:wrap;gap:1.2rem;align-items:center;justify-content:space-between}
+.foot ul{display:flex;flex-wrap:wrap;gap:1.4rem;list-style:none;margin:0;padding:0}
+.foot ul a{color:var(--muted);text-decoration:none;font-size:.95rem}
+.foot ul a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--teal);text-decoration-thickness:2px}
+.foot small{color:var(--muted);font-size:.9rem}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header>
+  <nav class="wrap" aria-label="Main" data-i18n-aria="nav.label">
+    <a class="wordmark" href="#top">ana gonzález lamé<span class="mark" aria-hidden="true">✳</span></a>
+    <ul class="navlinks">
+      <li class="hide-m"><a class="sec" href="#profile" data-i18n="nav.profile">Profile</a></li>
+      <li class="hide-m"><a class="sec" href="#leadership" data-i18n="nav.lead">Leadership</a></li>
+      <li class="hide-m"><a class="sec" href="#talks" data-i18n="nav.talks">Talks</a></li>
+      <li><a class="sec" href="#contact" data-i18n="nav.contact">Contact</a></li>
+      <li>
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true" lang="en" aria-label="English">EN</button><button type="button" data-lang="es" aria-pressed="false" lang="es" aria-label="Español">ES</button>
+        </div>
+      </li>
+      <li class="hide-s">
+        <a class="nav-in" href="https://www.linkedin.com/in/anagonzalezlame/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <div id="top" class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="status"><span class="dot" aria-hidden="true"></span><span data-i18n="hero.status"><b>Open to new roles.</b> Remote, from Montevideo.</span></p>
+        <h1 data-i18n="hero.h1"><span class="line">Details matter.</span><span class="line">A <span class="who">person<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 50 5, 120 4, 197 10"/></svg></span> notices them.</span></h1>
+        <p class="hero-sub" data-i18n="hero.sub">Eight-plus years finding what an automated check misses, then explaining it so the whole team understands.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary js-mail" href="#contact" data-i18n="cta.talk">Let’s talk</a>
+          <a class="btn btn-ghost" href="https://anagonzalez.cv/" target="_blank" rel="noopener" data-i18n="hero.cv">See my CV</a>
+        </div>
+      </div>
+      <figure class="portrait">
+        <img src="ana.webp" width="540" height="554" alt="Ana González Lamé, arms crossed, wearing black round glasses and a white sweatshirt" data-i18n-alt="hero.alt">
+        <figcaption>Montevideo, UY</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="facts">
+    <div class="wrap">
+      <ul>
+        <li><b>ISTQB</b><span data-i18n="facts.istqb">Certified Tester, Foundation Level</span></li>
+        <li><b data-i18n="facts.en.b">English C2</b><span>Cambridge Proficiency</span></li>
+        <li><b>Women Techmakers</b><span>Ambassador, Uruguay</span></li>
+        <li><b>Google Cloud</b><span data-i18n="facts.genai">Certified Generative AI Leader</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="profile" aria-labelledby="profile-h">
+    <div class="wrap">
+      <div class="head"><h2 id="profile-h" data-i18n="profile.h2">Ask better. Find it sooner.</h2></div>
+      <div class="bio">
+        <div>
+          <p data-i18n="profile.p1">I’m a Senior QA specializing in manual testing. For more than eight years I’ve been finding what a system gets wrong before the people who rely on it notice. <strong>Curiosity, judgment and the right questions make products better.</strong></p>
+          <p data-i18n="profile.p2">I use Gherkin, Xray, Postman, SQL and Git to turn business needs into rigorous test strategies. I’m interested in applying AI to testing while keeping the manual judgment that makes a good tester.</p>
+        </div>
+        <blockquote data-i18n="profile.quote">“If it’s worth doing, it’s worth doing well.”</blockquote>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <h3 data-i18n="p1.h">Explore with intent</h3>
+          <p data-i18n="p1.p">Exploratory and functional testing to uncover unexpected behavior and friction in the experience.</p>
+          <p class="tools">Exploratory, functional, API</p>
+        </div>
+        <div class="pillar">
+          <h3 data-i18n="p2.h">Bring clarity to the team</h3>
+          <p data-i18n="p2.p">Clear requirements, BDD scenarios and acceptance criteria that connect business, development and quality.</p>
+          <p class="tools">BDD, Gherkin, Jira, Xray</p>
+        </div>
+        <div class="pillar">
+          <h3 data-i18n="p3.h">Think about who uses it</h3>
+          <p data-i18n="p3.p">A Quality Experience lens: accessibility, context and real needs in every quality decision.</p>
+          <p class="tools" data-i18n="p3.tools">QX, accessibility, agile</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="leadership" class="band" aria-labelledby="lead-h">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="lead-h" data-i18n="lead.h2">Getting ready to lead.</h2>
+        <p data-i18n="lead.p">Testing already puts me between product, development and the business, making sure everyone agrees on what “done” means. Over the last two years I’ve trained for the work around that: planning delivery, aligning stakeholders and helping people grow.</p>
+      </div>
+      <div class="lead-grid">
+        <div class="practice">
+          <h3 data-i18n="lead.practice">In practice</h3>
+          <ul>
+            <li data-i18n="lead.l1"><strong>Mentoring.</strong> I ran upskilling courses for more than ten junior QAs at Globant.</li>
+            <li data-i18n="lead.l2"><strong>Community.</strong> As a Women Techmakers Ambassador, I coordinate local events and speakers.</li>
+            <li data-i18n="lead.l3"><strong>Onboarding.</strong> I wrote an <a href="https://github.com/anagonzalezlame/quality-engineering-playbook" target="_blank" rel="noopener">open playbook</a> for teams bringing junior testers on board.</li>
+          </ul>
+        </div>
+        <ol class="track" reversed>
+          <li>
+            <span class="yr">2026</span>
+            <div>
+              <h3 data-i18n="t1.h">Despegadas, inclusive leadership program</h3>
+              <p class="by" data-i18n="t1.by">Empathy, funded by INEFOP</p>
+              <p class="what" data-i18n="t1.p">Four months on inclusive leadership with a gender perspective, strategic skills, mentoring, and an applied leadership project.</p>
+            </div>
+          </li>
+          <li>
+            <span class="yr">2026</span>
+            <div>
+              <h3>Google Stakeholder Management</h3>
+              <p class="by" data-i18n="t2.by">Google, professional specialization</p>
+              <p class="what" data-i18n="t2.p">Stakeholder analysis, communication planning, RACI charts and leading inclusive teams.</p>
+              <a href="https://coursera.org/verify/specialization/HJ6TH0GF27W6" target="_blank" rel="noopener" data-i18n="verify">Verify credential</a>
+            </div>
+          </li>
+          <li>
+            <span class="yr">2025</span>
+            <div>
+              <h3>Generative AI Leader</h3>
+              <p class="by" data-i18n="t3.by">Google Cloud certification, valid until 2028</p>
+              <p class="what" data-i18n="t3.p">Deciding where generative AI belongs in a team’s work, and how to adopt it responsibly.</p>
+            </div>
+          </li>
+          <li>
+            <span class="yr">2025</span>
+            <div>
+              <h3>Google Project Management</h3>
+              <p class="by" data-i18n="t4.by">Google, professional certificate</p>
+              <p class="what" data-i18n="t4.p">Initiating, planning and running both traditional and agile projects.</p>
+              <a href="https://coursera.org/verify/professional-cert/VYEU8L3EF72T" target="_blank" rel="noopener" data-i18n="verify">Verify credential</a>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="credentials" aria-labelledby="cred-h">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="cred-h" data-i18n="cred.h2">Learning is part of the job.</h2>
+        <p data-i18n="cred.p">Testing credentials, most recent first.</p>
+      </div>
+      <table class="creds">
+        <thead><tr><th data-i18n="cred.th1">Year</th><th data-i18n="cred.th2">Credential</th><th data-i18n="cred.th3">Issued by</th></tr></thead>
+        <tbody>
+          <tr><td>2026</td><td class="name" data-i18n="c1">Effective Metric Usage, taught by Lisa Crispin</td><td class="issuer">QLA</td></tr>
+          <tr><td>2023</td><td class="name" data-i18n="c2">Professional Testing Master, advanced level</td><td class="issuer">UTN FRBA</td></tr>
+          <tr><td>2015</td><td class="name">ISTQB Certified Tester, Foundation Level</td><td class="issuer">ISTQB</td></tr>
+          <tr><td>2005</td><td class="name">Certificate of Proficiency in English, C2</td><td class="issuer">Cambridge English</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="work" aria-labelledby="work-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="work-h" data-i18n="work.h2">Work in the open.</h2>
+        <p data-i18n="work.p">Projects anyone can read, run and reuse on my GitHub.</p>
+      </div>
+      <ul class="work">
+        <li>
+          <h3>Quality Engineering Playbook<span class="stack" data-i18n="w1.s">Strategy, BDD, API testing, QX</span></h3>
+          <p data-i18n="w1.p">A living guide to test strategy, documentation and onboarding for junior testers, for any team to take and adapt.</p>
+          <a href="https://github.com/anagonzalezlame/quality-engineering-playbook" target="_blank" rel="noopener" data-i18n="w.repo">View repository</a>
+        </li>
+        <li>
+          <h3>PokeAPI QA Automation<span class="stack">Java, Cucumber, REST Assured, Playwright</span></h3>
+          <p data-i18n="w2.p">API and UI tests for PokeAPI, written in Gherkin so QA, developers and product can all read them. Runs weekly on GitHub Actions.</p>
+          <a href="https://github.com/anagonzalezlame/pokeapi-qa-automation" target="_blank" rel="noopener" data-i18n="w.repo">View repository</a>
+        </li>
+        <li>
+          <h3 data-i18n="w3.h">LED panel projects<span class="stack">Python, Claude Code</span></h3>
+          <p data-i18n="w3.p">Small programs for a 96×16 LED panel, built by talking with an AI: a desk clock with weather and email, a Spotify ticker and prompt-to-pixel-art.</p>
+          <a href="https://github.com/anagonzalezlame/led-projects" target="_blank" rel="noopener" data-i18n="w.repo">View repository</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="talks" aria-labelledby="talks-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="talks-h" data-i18n="talks.h2">What I learn, I share.</h2>
+        <p data-i18n="talks.p">Most of these talks came out of Women Techmakers and TestingUY.</p>
+      </div>
+      <ol class="talks" reversed>
+        <li class="talk">
+          <span class="yr">2026</span>
+          <div>
+            <h3 data-i18n="k1.h">QX: from “Bug Hunter” to “Customer Advocate”</h3>
+            <p data-i18n="k1.p">Abstracta Tech Talk. The voice of the people who use a product, and the friction the code never shows.</p>
+            <a href="https://www.youtube.com/watch?v=DV1CkYQTRUA" target="_blank" rel="noopener" data-i18n="watch">Watch the talk</a>
+          </div>
+        </li>
+        <li class="talk">
+          <span class="yr">2025</span>
+          <div>
+            <h3 data-i18n="k2.h">Neurodivergence in the service of quality</h3>
+            <p data-i18n="k2.p">nerdear.la. How pattern recognition and attention to the unexpected can be strengths in testing.</p>
+            <a href="https://www.youtube.com/watch?v=-E8dFPpH2TI" target="_blank" rel="noopener" data-i18n="watch">Watch the talk</a>
+          </div>
+        </li>
+        <li class="talk">
+          <span class="yr">2024</span>
+          <div>
+            <h3 data-i18n="k3.h">The seven testing principles in real life</h3>
+            <p data-i18n="k3.p">Abstracta Tech Talks. A realistic take on applying them day to day.</p>
+            <a href="https://www.youtube.com/watch?v=BGke-WAWez4" target="_blank" rel="noopener" data-i18n="watch">Watch the talk</a>
+          </div>
+        </li>
+        <li class="talk">
+          <span class="yr">2022</span>
+          <div>
+            <h3 data-i18n="k4.h">The seven principles and the real world</h3>
+            <p data-i18n="k4.p">TCV2022. How testing principles hold up, or bend, in professional practice.</p>
+            <a href="https://www.youtube.com/live/XskS7mfGPb4" target="_blank" rel="noopener" data-i18n="watch">Watch the talk</a>
+          </div>
+        </li>
+      </ol>
+      <div class="community">
+        <div>
+          <h3 data-i18n="cm1.h">Women Techmakers, Ambassador</h3>
+          <p data-i18n="cm1.p">I build community and visible role models, bringing more women into tech through talks, mentoring and content.</p>
+        </div>
+        <div>
+          <h3 data-i18n="cm2.h">TestingUY, collaborator</h3>
+          <p data-i18n="cm2.p">I help promote testing in Uruguay and the region, where quality professionals share knowledge and practice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="cta-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="cta">
+        <h2 id="cta-h" data-i18n="cta.h2">Shall we build something right?</h2>
+        <div class="cta-side">
+          <p data-i18n="cta.p">I’m looking for my next team. If quality matters to yours, let’s talk.</p>
+          <a class="btn btn-primary js-mail" href="https://www.linkedin.com/in/anagonzalezlame/" data-i18n="cta.talk">Let’s talk</a>
+          <a class="cta-mail js-mail js-mail-text" href="https://www.linkedin.com/in/anagonzalezlame/">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span class="wordmark">ana gonzález lamé<span class="mark" aria-hidden="true">✳</span></span>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/anagonzalezlame/" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://github.com/anagonzalezlame" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.instagram.com/anagonzalezqa/" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://x.com/AnaGonzalezQA" target="_blank" rel="noopener">X</a></li>
+    </ul>
+    <small>Montevideo, Uruguay</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* Email assembled at runtime to keep it away from simple scrapers. */
+  var addr = ['anagonzalezlame','gmail.com'].join('@');
+  document.querySelectorAll('.js-mail').forEach(function(a){ a.href = 'mailto:' + addr; });
+  document.querySelectorAll('.js-mail-text').forEach(function(a){ a.textContent = addr; });
+
+  var ES = {
+    'skip':'Saltar al contenido',
+    'nav.profile':'Perfil','nav.lead':'Liderazgo','nav.talks':'Charlas','nav.contact':'Contacto',
+    'hero.status':'<b>Disponible para nuevos equipos.</b> Remoto, desde Montevideo.',
+    'hero.h1':'<span class="line">El detalle importa.</span><span class="line">Lo cuida una <span class="who">persona.<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 50 5, 120 4, 197 10"/></svg></span></span>',
+    'hero.sub':'Más de ocho años encontrando lo que un caso automático no busca, y explicándolo para que todo el equipo lo entienda.',
+    'hero.cv':'Ver mi CV',
+    'hero.alt':'Ana González Lamé, de brazos cruzados, con lentes redondos negros y un buzo blanco',
+    'facts.istqb':'Certified Tester, Foundation Level',
+    'facts.en.b':'Inglés C2',
+    'facts.genai':'Certified Generative AI Leader',
+    'profile.h2':'Preguntar mejor, encontrar antes.',
+    'profile.p1':'Soy Senior QA especializada en testing manual. Hace más de ocho años que descubro lo que un sistema hace mal antes de que lo note quien lo necesita. <strong>La curiosidad, el criterio y las buenas preguntas hacen mejores productos.</strong>',
+    'profile.p2':'Uso Gherkin, Xray, Postman, SQL y Git para convertir necesidades de negocio en estrategias de prueba rigurosas. Me interesa aplicar IA al testing sin perder el criterio manual que define a una buena tester.',
+    'profile.quote':'“Si vale la pena hacerlo, vale la pena hacerlo bien.”',
+    'p1.h':'Explorar con intención',
+    'p1.p':'Testing exploratorio y funcional para descubrir comportamientos inesperados y fricciones en la experiencia.',
+    'p2.h':'Dar claridad al equipo',
+    'p2.p':'Requisitos claros, escenarios BDD y criterios de aceptación que conectan negocio, desarrollo y calidad.',
+    'p3.h':'Pensar en quien lo usa',
+    'p3.p':'Una mirada de Quality Experience: accesibilidad, contexto y necesidades reales en cada decisión de calidad.',
+    'p3.tools':'QX, accesibilidad, agile',
+    'lead.h2':'Preparándome para liderar.',
+    'lead.p':'El testing ya me ubica entre producto, desarrollo y negocio, cuidando que todas las partes entiendan lo mismo por “terminado”. En los últimos dos años me formé para el trabajo que rodea eso: planificar entregas, alinear a las partes interesadas y acompañar el crecimiento de otras personas.',
+    'lead.practice':'En la práctica',
+    'lead.l1':'<strong>Mentoría.</strong> Di cursos de actualización a más de diez QA junior en Globant.',
+    'lead.l2':'<strong>Comunidad.</strong> Como Women Techmakers Ambassador, coordino eventos locales y oradoras.',
+    'lead.l3':'<strong>Incorporación.</strong> Escribí un <a href="https://github.com/anagonzalezlame/quality-engineering-playbook" target="_blank" rel="noopener">playbook abierto</a> para equipos que suman testers junior.',
+    't1.h':'Despegadas, programa de liderazgo inclusivo',
+    't1.by':'Empathy, con financiación de INEFOP',
+    't1.p':'Cuatro meses de formación en liderazgo inclusivo con perspectiva de género, competencias estratégicas y mentorías, con un proyecto final de liderazgo aplicado.',
+    't2.by':'Google, especialización profesional',
+    't2.p':'Análisis de partes interesadas, planificación de la comunicación, matrices RACI y liderazgo de equipos inclusivos.',
+    't3.by':'Certificación de Google Cloud, vigente hasta 2028',
+    't3.p':'Decidir dónde suma la IA generativa en el trabajo de un equipo y cómo adoptarla con responsabilidad.',
+    't4.by':'Google, certificado profesional',
+    't4.p':'Iniciar, planificar y llevar adelante proyectos tradicionales y ágiles.',
+    'verify':'Verificar credencial',
+    'cred.h2':'Aprender también es parte del trabajo.',
+    'cred.p':'Credenciales de testing, de la más reciente a la más antigua.',
+    'cred.th1':'Año','cred.th2':'Credencial','cred.th3':'Emitida por',
+    'c1':'Effective Metric Usage, dictado por Lisa Crispin',
+    'c2':'Professional Testing Master, nivel avanzado',
+    'work.h2':'Trabajo a la vista.',
+    'work.p':'Proyectos en mi GitHub que cualquier persona puede leer, ejecutar y reutilizar.',
+    'w1.s':'Estrategia, BDD, pruebas de API, QX',
+    'w1.p':'Una guía viva de estrategia de testing, documentación e incorporación de testers junior, para que cualquier equipo la tome y la adapte.',
+    'w2.p':'Pruebas de API y de interfaz para PokeAPI, escritas en Gherkin para que QA, desarrollo y producto puedan leerlas. Corren cada semana en GitHub Actions.',
+    'w3.h':'Proyectos con un panel LED<span class="stack">Python, Claude Code</span>',
+    'w3.p':'Pequeños programas para un panel LED de 96×16, hechos conversando con una IA: un reloj de escritorio con clima y correo, una marquesina de Spotify y pixel art a partir de un texto.',
+    'w.repo':'Ver repositorio',
+    'talks.h2':'Lo que aprendo, lo comparto.',
+    'talks.p':'La mayoría de estas charlas salieron de Women Techmakers y TestingUY.',
+    'k1.h':'QX: from “Bug Hunter” to “Customer Advocate”',
+    'k1.p':'Abstracta Tech Talk. La voz de las personas usuarias y las fricciones que el código no muestra.',
+    'k2.h':'Neurodivergencia al servicio de la calidad',
+    'k2.p':'nerdear.la. Cómo el reconocimiento de patrones y la atención a lo inesperado pueden ser fortalezas en testing.',
+    'k3.h':'Los siete principios de pruebas en la vida real',
+    'k3.p':'Abstracta Tech Talks. Una aproximación realista a su aplicación cotidiana.',
+    'k4.h':'Los siete principios y el mundo real',
+    'k4.p':'TCV2022. Cómo los principios del testing se sostienen, o se flexibilizan, en la práctica profesional.',
+    'watch':'Ver charla',
+    'cm1.h':'Women Techmakers, Ambassador',
+    'cm1.p':'Impulso comunidad y referentes técnicas, acercando a más mujeres a la tecnología con charlas, mentorías y contenido.',
+    'cm2.h':'TestingUY, colaboradora',
+    'cm2.p':'Ayudo a promover el testing en Uruguay y la región, un espacio donde profesionales de calidad comparten conocimiento y prácticas.',
+    'cta.h2':'¿Hacemos algo bien hecho?',
+    'cta.p':'Estoy buscando mi próximo equipo. Si la calidad importa en el tuyo, conversemos.',
+    'cta.talk':'Hablemos',
+    'nav.label':'Principal'
+  };
+
+  var nodes = document.querySelectorAll('[data-i18n]');
+  var altNodes = document.querySelectorAll('[data-i18n-alt]');
+  var ariaNodes = document.querySelectorAll('[data-i18n-aria]');
+  var EN = {};
+  nodes.forEach(function(el){ var k = el.getAttribute('data-i18n'); if (!(k in EN)) EN[k] = el.innerHTML; });
+  altNodes.forEach(function(el){ EN[el.getAttribute('data-i18n-alt')] = el.alt; });
+  ariaNodes.forEach(function(el){ EN[el.getAttribute('data-i18n-aria')] = el.getAttribute('aria-label'); });
+  var titles = { en: document.title, es: 'Ana González Lamé, Senior QA' };
+
+  function setLang(lang){
+    var d = lang === 'es' ? ES : EN;
+    nodes.forEach(function(el){ var k = el.getAttribute('data-i18n'); if (d[k] !== undefined) el.innerHTML = d[k]; });
+    altNodes.forEach(function(el){ var k = el.getAttribute('data-i18n-alt'); if (d[k] !== undefined) el.alt = d[k]; });
+    ariaNodes.forEach(function(el){ var k = el.getAttribute('data-i18n-aria'); if (d[k] !== undefined) el.setAttribute('aria-label', d[k]); });
+    document.documentElement.lang = lang;
+    document.title = titles[lang];
+    document.querySelectorAll('.lang button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.lang === lang)); });
+    try { localStorage.setItem('ana-site-lang', lang); } catch (e) {}
+  }
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.dataset.lang); });
+  });
+  var start = null;
+  try { start = new URLSearchParams(location.search).get('lang') || localStorage.getItem('ana-site-lang'); } catch (e) {}
+  if (start === 'es') setLang('es');
+
+  /* Current section in the nav */
+  var links = document.querySelectorAll('.navlinks a.sec');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        links.forEach(function(a){ a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + e.target.id)); });
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    ['profile','leadership','talks','contact'].forEach(function(id){ var s = document.getElementById(id); if (s) io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
