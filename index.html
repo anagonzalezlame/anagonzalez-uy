@@ -57,7 +57,7 @@ p{margin:0}
 header{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 nav.wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:68px}
 .wordmark{font-family:var(--display);font-weight:700;font-size:1.08rem;text-decoration:none;display:flex;align-items:center;gap:.4rem;white-space:nowrap}
-.wordmark .mark{color:var(--teal-text);font-size:1.1em;line-height:1}
+.wordmark .mark{width:1.75em;height:1.75em;flex:none;display:block}
 .navlinks{display:flex;align-items:center;gap:clamp(.9rem,2vw,1.8rem);list-style:none;margin:0;padding:0}
 .navlinks a.sec{font-size:.95rem;text-decoration:none;color:var(--muted);position:relative;padding-block:.3rem}
 .navlinks a.sec:hover,.navlinks a.sec[aria-current="true"]{color:var(--ink)}
@@ -222,7 +222,7 @@ footer{border-top:1px solid var(--line);padding-block:2rem}
 
 <header>
   <nav class="wrap" aria-label="Main" data-i18n-aria="nav.label">
-    <a class="wordmark" href="#top">ana gonzález lamé<span class="mark" aria-hidden="true">✳</span></a>
+    <a class="wordmark" href="#top">ana gonzález lamé<img class="mark" src="/logo-mark.png" width="48" height="48" alt=""></a>
     <ul class="navlinks">
       <li class="hide-m"><a class="sec" href="#profile" data-i18n="nav.profile">Profile</a></li>
       <li class="hide-m"><a class="sec" href="#leadership" data-i18n="nav.lead">Leadership</a></li>
@@ -470,7 +470,7 @@ footer{border-top:1px solid var(--line);padding-block:2rem}
 
 <footer>
   <div class="wrap foot">
-    <span class="wordmark">ana gonzález lamé<span class="mark" aria-hidden="true">✳</span></span>
+    <span class="wordmark">ana gonzález lamé<img class="mark" src="/logo-mark.png" width="48" height="48" alt=""></span>
     <ul>
       <li><a href="https://www.linkedin.com/in/anagonzalezlame/" target="_blank" rel="noopener">LinkedIn</a></li>
       <li><a href="https://github.com/anagonzalezlame" target="_blank" rel="noopener">GitHub</a></li>
