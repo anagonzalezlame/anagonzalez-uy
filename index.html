@@ -13,9 +13,9 @@
 <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-display:swap;font-weight:200 800;src:url(fonts/bricolage-grotesque-latin-wght-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter Tight';font-style:normal;font-display:swap;font-weight:100 900;src:url(fonts/inter-tight-latin-wght-normal.woff2) format('woff2')}
 @font-face{font-family:'Hanken Grotesk';font-style:normal;font-display:swap;font-weight:100 900;src:url(fonts/hanken-grotesk-latin-wght-normal.woff2) format('woff2')}
 :root{
   --bg:#ffffff;
@@ -28,7 +28,7 @@
   --on-teal:#07110f;
   --dark-muted:#a9bab4;    /* body text on the ink band */
 
-  --display:'Bricolage Grotesque','Hanken Grotesk',sans-serif;
+  --display:'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif;
   --body:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;
   --max:72rem;
 }
@@ -41,7 +41,7 @@ a{color:inherit}
 :focus-visible{outline:2px solid var(--teal-text);outline-offset:3px;border-radius:3px}
 .band :focus-visible{outline-color:var(--teal)}
 .wrap{max-width:var(--max);margin:0 auto;padding-inline:clamp(1.25rem,4vw,2.5rem)}
-h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-0.015em;text-wrap:balance;margin:0}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:0;text-wrap:balance;margin:0}
 p{margin:0}
 .skip{position:absolute;left:1rem;top:-3rem;background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:.5rem;z-index:99;text-decoration:none}
 .skip:focus{top:1rem}
@@ -78,7 +78,7 @@ nav.wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;
 .status{display:flex;align-items:center;gap:.6rem;font-size:.98rem;color:var(--muted);margin-bottom:1.6rem}
 .status .dot{width:8px;height:8px;border-radius:50%;background:#22b45c;box-shadow:0 0 0 4px #22b45c26;flex:none}
 .status b{color:var(--ink);font-weight:600}
-.hero h1{font-size:clamp(2.5rem,5.6vw,4.3rem);line-height:1.1;letter-spacing:-0.025em}
+.hero h1{font-size:clamp(2.5rem,5.6vw,4.3rem);line-height:1.1;letter-spacing:-0.01em}
 .hero h1 .line{display:block}
 .hero h1 .who{position:relative;white-space:nowrap}
 .hero h1 .who svg{position:absolute;left:-2%;bottom:-.12em;width:104%;height:.32em;overflow:visible}
